@@ -22,42 +22,55 @@ class App extends Component {
 
   componentDidMount() {
     var api_key = "RGAPI-c2803147-5d63-4739-a85a-9181c1a7a66a";
-    var accountId = this.state.accountId;
+
     axios
       .get(
         `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/Senpai%20My%20Guy?api_key=${api_key}`
       )
       .then(response => {
-        // console.log(response.data);
-        // console.log(response.data.name);
-        // console.log(response.data.accountId);
-        // console.log(response.data.summonerLevel);
-        // var { name, summonerLevel, accountId } = response.data;
-        this.setState(
-          {
-            name: response.data.name,
-            summonerLevel: response.data.summonerLevel,
-            accountId: response.data.accountId
-          },
-          () => {
-            console.log(this.state.accountId);
-          }
-        );
-        // this.setState({ name, summonerLevel, accountId });
-        // console.log(this.state.accountId);
-      });
+        var { name, summonerLevel, accountId } = response.data;
 
-    axios
-      .get(
-        `https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/${accountId}?api_key=${api_key}`
-      )
-      .then(response => {
-        console.log(response.data.matches);
-      })
-      .catch(err => {
-        console.log(err);
+        this.setState({ name, summonerLevel, accountId });
+
+        axios
+          .get(
+            `https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/${accountId}?api_key=${api_key}`
+          )
+          .then(response => {
+            console.log(response.data.matches);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       });
   }
+  // componentDidMount() {
+  //   var api_key = "RGAPI-c2803147-5d63-4739-a85a-9181c1a7a66a";
+  //   var accountId = this.state.accountId;
+  //   axios
+  //     .get(
+  //       `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/Senpai%20My%20Guy?api_key=${api_key}`
+  //     )
+  //     .then(response => {
+  //       // console.log(response.data);
+  //       // console.log(response.data.name);
+  //       // console.log(response.data.accountId);
+  //       // console.log(response.data.summonerLevel);
+  //       // var { name, summonerLevel, accountId } = response.data;
+  //       this.setState(
+  //         {
+  //           name: response.data.name,
+  //           summonerLevel: response.data.summonerLevel,
+  //           accountId: response.data.accountId
+  //         },
+  //         () => {
+  //           console.log(this.state.accountId);
+  //         }
+  //       );
+  //       // this.setState({ name, summonerLevel, accountId });
+  //       // console.log(this.state.accountId);
+  //     });
+  // }
 
   render() {
     return (
