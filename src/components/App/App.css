@@ -24,8 +24,7 @@
 #titleheader {
   font-size: 50px;
 }
-form {
-  height: 20px;
+.searchbar {
 }
 @keyframes App-logo-spin {
   from {
