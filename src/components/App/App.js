@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import Search from "../Search/Search.js";
 // import Results from "../Results/Results.js";
@@ -39,7 +39,17 @@ class App extends Component {
             // console.log(response.data.matches);
             console.log(matchHistory);
             console.log(this.state);
+            // console.log(matchHistory[0].champion);
+
+            var championsPlayed = [];
+
+            for (let i = 0; i < matchHistory.length; i++) {
+              // console.log(matchHistory[i].champion);
+              championsPlayed.push(matchHistory[i].champion);
+            }
+            console.log(championsPlayed);
           })
+
           .catch(err => {
             console.log(err);
           });
@@ -52,8 +62,8 @@ class App extends Component {
         <div>
           <nav>
             <h1>Summoner Check</h1>
-            <Link to="/search">Search</Link>
-            <Link to="/results">Results</Link>
+            {/* <Link to="/search">Search</Link> */}
+            {/* <Link to="/results">Results</Link> */}
           </nav>
           <main>
             <Switch>
