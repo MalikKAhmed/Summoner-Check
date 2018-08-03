@@ -8,7 +8,7 @@ class Summoner extends React.Component {
         {this.props.summonerLevel && (
           <p>Current Level: {this.props.summonerLevel}</p>
         )}
-        {this.props.accountId && <p>Account Id: {this.props.accountId}</p>}
+        {/* {this.props.accountId && <p>Account Id: {this.props.accountId}</p>} */}
         {this.props.profileIconId && <p>Icon: {this.props.profileIconId}</p>}
         {this.props.error && <p>{this.props.error}</p>}
       </div>

@@ -26,7 +26,7 @@ class App extends React.Component {
     );
     const data = await api_call.json();
     if (summoner) {
-      // console.log(data);
+      console.log(data);
       this.setState({
         name: data.name,
         summonerLevel: data.summonerLevel,
@@ -40,13 +40,27 @@ class App extends React.Component {
         }?beginIndex=0&endIndex=19&api_key=${API_KEY}`
       );
       const mdata = await matchlist.json();
-      console.log(mdata.matches);
+      // console.log(mdata.matches);
       const gameIds = [];
       for (let i = 0; i < mdata.matches.length; i++) {
         // console.log(mdata.matches[i].gameId);
         gameIds.push(mdata.matches[i].gameId);
       }
       console.log(gameIds);
+      const matchDetail = await fetch(
+        `https://na1.api.riotgames.com/lol/match/v3/matches/${
+          gameIds[1]
+        }?api_key=${API_KEY}`
+      );
+      const gdata = await matchDetail.json();
+      console.log(gdata);
+      for (let i = 0; i < gdata.participants.length; i++) {
+        console.log(gdata.participants[i].stats.win);
+      }
+      for (let i = 0; i < gdata.participantIdentities.length; i++) {
+        console.log(gdata.participantIdentities[i].player.accountId);
+      }
+      //possibly an if statement to match the summoner name with the key
     } else {
       this.setState({
         name: undefined,
@@ -70,7 +84,7 @@ class App extends React.Component {
           profileIconId={this.state.profileIconId}
           error={this.state.error}
         />
-        <Matches accountId={this.state.accountId} getGameId={this.getGameId} />
+        <Matches getSummoner={this.getSummoner} />
       </div>
     );
   }
