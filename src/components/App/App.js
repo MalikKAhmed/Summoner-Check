@@ -14,10 +14,20 @@ class App extends Component {
       accountId: "",
       matchHistory: []
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+  handleSubmit(event) {
+    console.log(this.state.name);
+    event.preventDefault();
   }
 
   componentDidMount() {
     var api_key = "RGAPI-c2803147-5d63-4739-a85a-9181c1a7a66a";
+    var input = this.state.name;
 
     axios
       .get(
@@ -48,6 +58,8 @@ class App extends Component {
               championsPlayed.push(matchHistory[i].champion);
             }
             console.log(championsPlayed);
+            //got the array of champids
+            //now to do another loop that takes the champions and finds another
           })
 
           .catch(err => {
@@ -58,20 +70,19 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <div>
-          <nav>
-            <h1>Summoner Check</h1>
-            {/* <Link to="/search">Search</Link> */}
-            {/* <Link to="/results">Results</Link> */}
-          </nav>
-          <main>
-            <Switch>
-              <Route path="/search" component={Search} />
-            </Switch>
-          </main>
-        </div>
-      </Router>
+      <div>
+        <nav>
+          <h1>Summoner Check</h1>
+          {/* <Link to="/search">Search</Link> */}
+          {/* <Link to="/results">Results</Link> */}
+        </nav>
+        <main>
+          <form onSubmit={this.handleSubmit}>
+            <textarea value={this.state.name} onChange={this.handleChange} />
+            <input type="submit" value="check" />
+          </form>
+        </main>
+      </div>
     );
   }
 }

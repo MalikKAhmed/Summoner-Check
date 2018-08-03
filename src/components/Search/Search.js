@@ -8,14 +8,7 @@ class Search extends Component {
   handleSearchSubmit(e) {}
 
   render() {
-    return (
-      <div>
-        <form onSubmit={e => this.handleSearchSubmit(e)}>
-          <textarea onChange={e => this.handleSearchInput(e)} />
-          <input type="submit" value="check" />
-        </form>
-      </div>
-    );
+    return <div />;
   }
 }
 
