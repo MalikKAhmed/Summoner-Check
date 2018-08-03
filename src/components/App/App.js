@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import axios from "axios";
-import Search from "../Search/Search.js";
-// import Results from "../Results/Results.js";
+
 import "./App.css";
 
 class App extends Component {
@@ -18,25 +17,25 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    this.setState({ name: event.target.value });
   }
   handleSubmit(event) {
-    console.log(this.state.name);
+    console.log(this.state);
     event.preventDefault();
   }
 
   componentDidMount() {
     var api_key = "RGAPI-c2803147-5d63-4739-a85a-9181c1a7a66a";
-    var input = this.state.name;
-
     axios
       .get(
-        `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/Senpai%20My%20Guy?api_key=${api_key}`
+        `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${
+          this.state.name
+        }?api_key=${api_key}`
       )
       .then(response => {
-        var { name, summonerLevel, accountId } = response.data;
+        var { summonerLevel, accountId } = response.data;
 
-        this.setState({ name, summonerLevel, accountId });
+        this.setState({ summonerLevel, accountId });
         console.log(this.state);
 
         axios
@@ -73,12 +72,14 @@ class App extends Component {
       <div>
         <nav>
           <h1>Summoner Check</h1>
-          {/* <Link to="/search">Search</Link> */}
-          {/* <Link to="/results">Results</Link> */}
         </nav>
         <main>
           <form onSubmit={this.handleSubmit}>
-            <textarea value={this.state.name} onChange={this.handleChange} />
+            <input
+              type="text"
+              value={this.state.name}
+              onChange={this.handleChange}
+            />
             <input type="submit" value="check" />
           </form>
         </main>
