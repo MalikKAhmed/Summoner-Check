@@ -24,14 +24,24 @@ class App extends React.Component {
       `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${summoner}?api_key=${API_KEY}`
     );
     const data = await api_call.json();
-    console.log(data);
-    this.setState({
-      name: data.name,
-      summonerLevel: data.summonerLevel,
-      accountId: data.accountId,
-      profileIconId: data.profileIconId,
-      error: ""
-    });
+    if (summoner) {
+      console.log(data);
+      this.setState({
+        name: data.name,
+        summonerLevel: data.summonerLevel,
+        accountId: data.accountId,
+        profileIconId: data.profileIconId,
+        error: ""
+      });
+    } else {
+      this.setState({
+        name: undefined,
+        summonerLevel: undefined,
+        accountId: undefined,
+        profileIconId: undefined,
+        error: "Please enter a summoner name"
+      });
+    }
   };
   render() {
     return (
