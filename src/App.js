@@ -26,7 +26,7 @@ class App extends React.Component {
     );
     const data = await api_call.json();
     if (summoner) {
-      console.log(data);
+      // console.log(data);
       this.setState({
         name: data.name,
         summonerLevel: data.summonerLevel,
@@ -40,7 +40,13 @@ class App extends React.Component {
         }?beginIndex=0&endIndex=19&api_key=${API_KEY}`
       );
       const mdata = await matchlist.json();
-      console.log(mdata);
+      console.log(mdata.matches);
+      const gameIds = [];
+      for (let i = 0; i < mdata.matches.length; i++) {
+        // console.log(mdata.matches[i].gameId);
+        gameIds.push(mdata.matches[i].gameId);
+      }
+      console.log(gameIds);
     } else {
       this.setState({
         name: undefined,
