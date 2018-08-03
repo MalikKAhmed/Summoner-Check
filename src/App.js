@@ -3,11 +3,11 @@ import React from "react";
 import Titles from "./components/Titles";
 import Form from "./components/Form";
 import Summoner from "./components/Summoner";
-import Matches from "./components/Matches";
+// import Matches from "./components/Matches";
 
 import "./App.css";
 
-const API_KEY = "RGAPI-07219149-a191-4091-8889-6170ac935361";
+const API_KEY = "RGAPI-c90f2009-037e-492f-8feb-9fc5133ad371";
 
 class App extends React.Component {
   state = {
@@ -40,7 +40,7 @@ class App extends React.Component {
         }?beginIndex=0&endIndex=19&api_key=${API_KEY}`
       );
       const mdata = await matchlist.json();
-      // console.log(mdata.matches);
+      console.log(mdata.matches);
       const gameIds = [];
       for (let i = 0; i < mdata.matches.length; i++) {
         // console.log(mdata.matches[i].gameId);
@@ -75,19 +75,34 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Titles />
-        <Form getSummoner={this.getSummoner} />
-        <Summoner
-          name={this.state.name}
-          summonerLevel={this.state.summonerLevel}
-          accountId={this.state.accountId}
-          profileIconId={this.state.profileIconId}
-          error={this.state.error}
-        />
-        <Matches getSummoner={this.getSummoner} />
+        <div className="wrapper">
+          <div className="main">
+            <div className="container">
+              <div className="row">
+                <div className="col-xs-5 title-container">
+                  <Titles />
+                </div>
+                <div className="col-xs-7 form-container">
+                  <Form getSummoner={this.getSummoner} />
+                  <Summoner
+                    name={this.state.name}
+                    summonerLevel={this.state.summonerLevel}
+                    accountId={this.state.accountId}
+                    profileIconId={this.state.profileIconId}
+                    error={this.state.error}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
+}
+
+{
+  /* <Matches getSummoner={this.getSummoner} /> */
 }
 
 export default App;
