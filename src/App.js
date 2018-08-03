@@ -9,11 +9,13 @@ import "./App.css";
 const API_KEY = "RGAPI-07219149-a191-4091-8889-6170ac935361";
 
 class App extends React.Component {
-  // state = {
-  //   name: "",
-  //   summonerLevel: "",
-  //   accountId: ""
-  // };
+  state = {
+    name: undefined,
+    summonerLevel: undefined,
+    accountId: undefined,
+    profileIconId: undefined,
+    error: undefined
+  };
 
   getSummoner = async e => {
     e.preventDefault();
@@ -23,13 +25,26 @@ class App extends React.Component {
     );
     const data = await api_call.json();
     console.log(data);
+    this.setState({
+      name: data.name,
+      summonerLevel: data.summonerLevel,
+      accountId: data.accountId,
+      profileIconId: data.profileIconId,
+      error: ""
+    });
   };
   render() {
     return (
       <div>
         <Titles />
         <Form getSummoner={this.getSummoner} />
-        <Summoner />
+        <Summoner
+          name={this.state.name}
+          summonerLevel={this.state.summonerLevel}
+          accountId={this.state.accountId}
+          profileIconId={this.state.profileIconId}
+          error={this.state.error}
+        />
       </div>
     );
   }
