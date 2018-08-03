@@ -3,6 +3,7 @@ import React from "react";
 import Titles from "./components/Titles";
 import Form from "./components/Form";
 import Summoner from "./components/Summoner";
+import Matches from "./components/Matches";
 
 import "./App.css";
 
@@ -33,6 +34,13 @@ class App extends React.Component {
         profileIconId: data.profileIconId,
         error: ""
       });
+      const matchlist = await fetch(
+        `https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/${
+          data.accountId
+        }?beginIndex=0&endIndex=19&api_key=${API_KEY}`
+      );
+      const mdata = await matchlist.json();
+      console.log(mdata);
     } else {
       this.setState({
         name: undefined,
@@ -43,6 +51,7 @@ class App extends React.Component {
       });
     }
   };
+
   render() {
     return (
       <div>
@@ -55,6 +64,7 @@ class App extends React.Component {
           profileIconId={this.state.profileIconId}
           error={this.state.error}
         />
+        <Matches accountId={this.state.accountId} getGameId={this.getGameId} />
       </div>
     );
   }
